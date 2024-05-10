@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     N = 1000000
     sizes = [100000, 200000, 300000, 400000, 500000]
-    sizes = sizes[:1]
+    #sizes = sizes[:1]
     error = 0.05
     confidence = 0.95
 
