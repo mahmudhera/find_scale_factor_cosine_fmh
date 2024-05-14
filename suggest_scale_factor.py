@@ -26,7 +26,10 @@ def get_min_scale_factor2(n1, n2, size_intersection, error, confidence):
 
 
 def get_min_scale_factor(n1, n2, error, confidence):
-    epsilon = error * 2 / 5
+    #epsilon = error * 2 / 5
+    #epsilon = error / 2
+    #epsilon = error / 4
+    epsilon = error / 1.5
     q = 6.0 / (1.0 - confidence)
     log_q = math.log(q)
     min_scale_factor = 3.0 * log_q / ( min(n1, n2) * epsilon**2 )

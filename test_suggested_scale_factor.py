@@ -6,13 +6,12 @@ if __name__ == '__main__':
 
     for min_value in [10000, 100000, 1000000, 10000000]:
         print('For min size:', min_value)
-        print(f'err_rate |\t 0.9 \t 0.95 \t 0.99')
-        print('----------------------------')
-        for error_rate in [0.01, 0.04, 0.07, 0.1]:
+        print(f'err_rate |\t 0.91 | 0.93 | 0.95 | 0.97 | 0.99')
+        for error_rate in [0.01, 0.03, 0.05, 0.07, 0.09, 0.10]:
             print(f'{error_rate} |\t\t', end='')
-            for confidence_rate in [0.9, 0.95, 0.99]:
+            for confidence_rate in [0.91, 0.93, 0.95, 0.97, 0.99]:
                 scale_factor = get_min_scale_factor(min_value, min_value, error_rate, confidence_rate)
-                print(round(scale_factor,4), end='\t')
+                print(f'{round(scale_factor,4):.4f}', end='|')
             print('')
     
     
@@ -26,8 +25,28 @@ if __name__ == '__main__':
     n1n2_pair_to_hit_rate = {}
     n1n2_pair_to_avg_cosine = {}
     n1n2_pair_to_hit_rate_fixed = {}
+    n1n2_pair_to_suggested_scale_factor = {}
     num_simulations = 100
     num_steps_done = 1
+
+    for n1 in sizes:
+        for n2 in sizes:
+            scale_factor = get_min_scale_factor(n1, n2, error, confidence)
+            n1n2_pair_to_suggested_scale_factor[(n1, n2)] = scale_factor
+
+    # print n1 by n2 matrix, with suggested scale factors
+    print('************************************')
+    print('Suggested scale factor matrix')
+    print('************************************')
+    print('n1 |\t 100000 \t 200000 \t 300000 \t 400000 \t 500000')
+    for n1 in sizes:
+        print(f'{n1} |', end='')
+        for n2 in sizes:
+            print(round(n1n2_pair_to_suggested_scale_factor[(n1,n2)], 4), end='\t')
+        print('')
+    print('************************************')
+
+
     for n1 in sizes:
         for n2 in sizes:
             num_hit = 0
